@@ -1,0 +1,28 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: cluster-in-existing-vpc
+  region: ap-southeast-2
+
+vpc:
+  subnets:
+    public:
+      ap-southeast-2a: { id: subnet-0312983b8749b2646 }
+      ap-southeast-2b: { id: subnet-0fac661d218248557 }
+      ap-southeast-2c: { id: subnet-095fe7d5a4f2060b8 }
+
+nodeGroups:
+  - name: ng-1-workers
+    labels: { role: workers }
+    instanceType: t2.micro
+    desiredCapacity: 4
+    privateNetworking: false
+  - name: ng-2-builders
+    labels: { role: builders }
+    instanceType: t2.micro
+    desiredCapacity: 2
+    privateNetworking: false
+    iam:
+      withAddonPolicies:
+        imageBuilder: true
