@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    parameters{
+    Parameters{
         string(name:'MAVEN_GOAL' defaultValue:'mvn clean package' decription:'mavengoal')
     }
 
